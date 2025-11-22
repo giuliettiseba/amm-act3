@@ -31,6 +31,7 @@ const LibrosCatalogo = () => {
 
             <FlatList
                 data={data}
+
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
                 renderItem={({item}) => (

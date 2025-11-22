@@ -1,6 +1,7 @@
 ﻿import {ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 import {useAuthStore} from "@/utils/authStore";
+import * as Haptics from 'expo-haptics';
 
 export default function SignInScreen() {
 
@@ -12,15 +13,22 @@ export default function SignInScreen() {
     const handleLogin = async () => {
         if (!email || !password) {
             Alert.alert('Error', 'Please enter both email and password');
+            await Haptics.notificationAsync(
+                Haptics.NotificationFeedbackType.Warning
+            )
             return;
         }
 
         setIsLoading(true);
         try {
             logIn();
+            await Haptics.notificationAsync(
+                Haptics.NotificationFeedbackType.Success)
 
         } catch (error) {
             Alert.alert('Error', 'Invalid credentials. Please try again.');
+            await Haptics.notificationAsync(
+                Haptics.NotificationFeedbackType.Error);
         } finally {
             setIsLoading(false);
         }
