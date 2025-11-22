@@ -41,6 +41,56 @@ function RootNavigator() {
                         },
                     }}
                 />
+                <Stack.Screen
+                    name="coworking"
+                    options={{
+                        headerShown: true,
+                        title: "Coworking",
+                        headerStyle: {
+                            backgroundColor: colors.card,
+                        },
+                        headerTintColor: colors.foreground,
+                        headerTitleStyle: {
+                            color: colors.foreground,
+                            fontFamily: 'HankenGrotesk-SemiBold',
+                        },
+                    }}
+                />
+
+                <Stack.Screen
+                    name="informacion"
+                    options={{
+                        headerShown: true,
+                        title: "Informacion",
+                        headerStyle: {
+                            backgroundColor: colors.card,
+                        },
+                        headerTintColor: colors.foreground,
+                        headerTitleStyle: {
+                            color: colors.foreground,
+                            fontFamily: 'HankenGrotesk-SemiBold',
+                        },
+                    }}
+                />
+
+                <Stack.Screen
+                    name="cafeteria"
+                    options={{
+                        headerShown: true,
+                        title: "Cafetería",
+                        headerStyle: {
+                            backgroundColor: colors.card,
+                        },
+                        headerTintColor: colors.foreground,
+                        headerTitleStyle: {
+                            color: colors.foreground,
+                            fontFamily: 'HankenGrotesk-SemiBold',
+                        },
+                    }}
+                />
+
+
+
             </Stack.Protected>
             <Stack.Protected guard={!isLoggedIn}>
                 <Stack.Screen name="sign-in" options={{headerShown: false}}/>

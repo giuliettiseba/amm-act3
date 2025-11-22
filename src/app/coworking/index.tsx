@@ -17,7 +17,7 @@ export default function CoworkingScreen() {
 
 
             {/* Content */}
-            <View className="p-6 ">
+            <View className="p-6 R">
                 {/* Info Card */}
                 <View style={{backgroundColor: colors.card, borderColor: colors.border}} className="p-4 rounded-xl border mb-6">
                     <View className="flex-row items-center mb-2">

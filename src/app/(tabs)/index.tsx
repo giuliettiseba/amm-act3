@@ -1,5 +1,5 @@
 ﻿import {Text, TouchableOpacity, View, ScrollView} from "react-native";
-import {Link, useRouter} from "expo-router";
+import { useRouter} from "expo-router";
 import {useTheme} from "@/utils/ThemeContext";
 import {FontAwesome} from "@expo/vector-icons";
 
@@ -15,10 +15,11 @@ export default function IndexScreen() {
                 {/* Cards Grid */}
                 <View className="gap-4">
                     {/* Catálogo de libros */}
-                    <Link asChild push href="/libros">
                         <TouchableOpacity
                             style={{backgroundColor: colors.card, borderColor: colors.border}}
                             className="p-6 rounded-2xl border shadow-sm"
+                            onPress={() => router.push('/libros')}
+
                         >
                             <View className="flex-row items-center mb-3">
                                 <View style={{backgroundColor: colors.primary + '20'}} className="w-12 h-12 rounded-full items-center justify-center mr-4">
@@ -35,13 +36,12 @@ export default function IndexScreen() {
                                 <FontAwesome name="chevron-right" size={16} color={colors.foregroundMuted} />
                             </View>
                         </TouchableOpacity>
-                    </Link>
 
                     {/* Coworking */}
                     <TouchableOpacity
                         style={{backgroundColor: colors.card, borderColor: colors.border}}
                         className="p-6 rounded-2xl border shadow-sm"
-                        onPress={() => router.push('/(tabs)/coworking')}
+                        onPress={() => router.push('/coworking')}
                     >
                         <View className="flex-row items-center mb-3">
                             <View style={{backgroundColor: colors.success + '20'}} className="w-12 h-12 rounded-full items-center justify-center mr-4">
@@ -63,7 +63,7 @@ export default function IndexScreen() {
                     <TouchableOpacity
                         style={{backgroundColor: colors.card, borderColor: colors.border}}
                         className="p-6 rounded-2xl border shadow-sm"
-                        onPress={() => router.push('/(tabs)/cafeteria')}
+                        onPress={() => router.push('/cafeteria')}
                     >
                         <View className="flex-row items-center mb-3">
                             <View style={{backgroundColor: colors.warning + '20'}} className="w-12 h-12 rounded-full items-center justify-center mr-4">
@@ -85,7 +85,7 @@ export default function IndexScreen() {
                     <TouchableOpacity
                         style={{backgroundColor: colors.card, borderColor: colors.border}}
                         className="p-6 rounded-2xl border shadow-sm"
-                        onPress={() => router.push('/(tabs)/informacion')}
+                        onPress={() => router.push('/informacion')}
                     >
                         <View className="flex-row items-center mb-3">
                             <View style={{backgroundColor: colors.info + '20'}} className="w-12 h-12 rounded-full items-center justify-center mr-4">
