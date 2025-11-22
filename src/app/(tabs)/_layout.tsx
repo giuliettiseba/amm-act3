@@ -1,4 +1,4 @@
-import {Stack, Tabs} from "expo-router";
+import {Tabs} from "expo-router";
 import {FontAwesome} from "@expo/vector-icons";
 
 export default function TabsLayout() {
@@ -17,11 +17,6 @@ export default function TabsLayout() {
                 title: "Profile",
                 tabBarIcon: ({color}) => <FontAwesome size={28} name="user" color={color}/>
             }}/>
-            <Tabs.Screen name="libros" options={{
-                title: "Libros",
-                tabBarIcon: ({color}) => <FontAwesome size={28} name="book" color={color}/>
-            }}>
-            </Tabs.Screen>
 
         </Tabs>
 

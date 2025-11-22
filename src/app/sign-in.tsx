@@ -1,13 +1,13 @@
 ﻿import {ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
-import {useAuth} from "@/contexts/AuthContext";
+import {useAuthStore} from "@/utils/authStore";
 
 export default function SignInScreen() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const {login} = useAuth();
+    const {logIn} = useAuthStore();
 
     const handleLogin = async () => {
         if (!email || !password) {
@@ -17,7 +17,7 @@ export default function SignInScreen() {
 
         setIsLoading(true);
         try {
-            await login(email, password);
+            logIn();
 
         } catch (error) {
             Alert.alert('Error', 'Invalid credentials. Please try again.');
