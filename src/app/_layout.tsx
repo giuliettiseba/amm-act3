@@ -1,106 +1,37 @@
-﻿import {SplashScreen, Stack} from "expo-router";
+﻿import "../../global.css"
+import {SplashScreen} from "expo-router";
 import {useEffect} from "react";
-import "../../global.css"
 import {useAuthStore} from "@/utils/authStore";
 import {Platform} from "react-native";
 import {StatusBar} from "expo-status-bar";
-import {ThemeProvider, useTheme} from "@/utils/ThemeContext";
+import {ThemeProvider} from "@/utils/ThemeContext";
 import {useThemeStore} from "@/utils/themeStore";
 import {useFonts} from "expo-font";
+import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
+import RootNavigator from "@/routes/RootNavigator";
 
+// Evitar que la pantalla de splash se oculte automáticamente en plataformas que no son web
 const isWeb = Platform.OS === "web";
-
 if (!isWeb) {
     SplashScreen.preventAutoHideAsync();
 }
 
-function RootNavigator() {
-    const {isLoggedIn} = useAuthStore();
-    const {colors} = useTheme();
 
-    return (
-        <Stack>
-            <Stack.Protected guard={isLoggedIn}>
-                <Stack.Screen name="(tabs)"
-                              options={{
-                                  title: "Home",
-                                  headerShown: false
-                              }}/>
-                <Stack.Screen
-                    name="libros"
-                    options={{
-                        headerShown: true,
-                        title: "Catálogo de Libros",
-                        headerStyle: {
-                            backgroundColor: colors.card,
-                        },
-                        headerTintColor: colors.foreground,
-                        headerTitleStyle: {
-                            color: colors.foreground,
-                            fontFamily: 'HankenGrotesk-SemiBold',
-                        },
-                    }}
-                />
-                <Stack.Screen
-                    name="coworking"
-                    options={{
-                        headerShown: true,
-                        title: "Coworking",
-                        headerStyle: {
-                            backgroundColor: colors.card,
-                        },
-                        headerTintColor: colors.foreground,
-                        headerTitleStyle: {
-                            color: colors.foreground,
-                            fontFamily: 'HankenGrotesk-SemiBold',
-                        },
-                    }}
-                />
-
-                <Stack.Screen
-                    name="informacion"
-                    options={{
-                        headerShown: true,
-                        title: "Informacion",
-                        headerStyle: {
-                            backgroundColor: colors.card,
-                        },
-                        headerTintColor: colors.foreground,
-                        headerTitleStyle: {
-                            color: colors.foreground,
-                            fontFamily: 'HankenGrotesk-SemiBold',
-                        },
-                    }}
-                />
-
-                <Stack.Screen
-                    name="cafeteria"
-                    options={{
-                        headerShown: true,
-                        title: "Cafetería",
-                        headerStyle: {
-                            backgroundColor: colors.card,
-                        },
-                        headerTintColor: colors.foreground,
-                        headerTitleStyle: {
-                            color: colors.foreground,
-                            fontFamily: 'HankenGrotesk-SemiBold',
-                        },
-                    }}
-                />
+// Crear una instancia de QueryClient para React Query
+const queryClient = new QueryClient()
 
 
-
-            </Stack.Protected>
-            <Stack.Protected guard={!isLoggedIn}>
-                <Stack.Screen name="sign-in" options={{headerShown: false}}/>
-            </Stack.Protected>
-        </Stack>
-    );
-}
+// Componente de diseño raíz que envuelve la aplicación
+// con proveedores de contexto.
+// También maneja la lógica de la pantalla de splash.
+// Este componente asegura que la aplicación no se renderice
+// hasta que todas las dependencias necesarias estén listas.
+// Esto incluye la hidratación de los stores de Zustand
+// y la carga de fuentes personalizadas.
 
 export default function RootLayout() {
 
+    // Cargar las fuentes personalizadas
     const [fontsLoaded, error] = useFonts({
         "HankenGrotesk-Regular": require("../../assets/fonts/HankenGrotesk-Regular.ttf"),
         "HankenGrotesk-Bold": require("../../assets/fonts/HankenGrotesk-Bold.ttf"),
@@ -110,35 +41,32 @@ export default function RootLayout() {
         "HankenGrotesk-ExtraBold": require("../../assets/fonts/HankenGrotesk-ExtraBold.ttf"),
     });
 
+    // Manejar errores de carga de fuentes
     useEffect(() => {
         if (error) throw error;
     }, [error]);
 
-    const {
-        _hasHydrated: authHydrated,
-    } = useAuthStore();
 
-    const {
-        _hasHydrated: themeHydrated,
-        theme,
-    } = useThemeStore();
+    const {_hasHydrated: authHydrated,} = useAuthStore();
+    const {_hasHydrated: themeHydrated, theme} = useThemeStore();
 
-    // https://zustand.docs.pmnd.rs/integrations/persisting-store-data#how-can-i-check-if-my-store-has-been-hydrated
-    // Hide the splash screen after the store has been hydrated
     useEffect(() => {
         if (authHydrated && themeHydrated && fontsLoaded) {
             SplashScreen.hideAsync();
         }
     }, [authHydrated, themeHydrated, fontsLoaded]);
 
+    // Esperar a que se hidraten los stores y se carguen las fuentes antes de renderizar la aplicación
     if ((!authHydrated || !themeHydrated || !fontsLoaded) && !isWeb) {
         return null;
     }
 
     return (
         <ThemeProvider>
-            <StatusBar style={theme === "dark" ? "light" : "dark"}/>
-            <RootNavigator />
+            <QueryClientProvider client={queryClient}>
+                <StatusBar style={theme === "dark" ? "light" : "dark"}/>
+                <RootNavigator/>
+            </QueryClientProvider>
         </ThemeProvider>
     )
 }

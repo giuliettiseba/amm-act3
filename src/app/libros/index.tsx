@@ -1,39 +1,41 @@
-﻿import {FlatList, Image, Pressable, Text, View} from "react-native";
-import {Link} from "expo-router";
-import {useLibros} from "@/hooks/useLibros";
+﻿import {ActivityIndicator, Alert, FlatList, View} from "react-native";
 import {useTheme} from "@/utils/ThemeContext";
+import {useQuery} from "@tanstack/react-query";
+import BookCard from "@/components/BookCard";
 
 const LibrosCatalogo = () => {
 
-    const {libros} = useLibros();
     const {colors} = useTheme();
 
+
+    const {isPending, error, data} = useQuery({
+        queryKey: ['libro'],
+        queryFn: () =>
+            fetch('https://mock.apidog.com/m1/1069422-1057565-default/books').then((res) =>
+                res.json(),
+            ),
+    })
+
+    if (error) {
+        Alert.alert('Error', 'No se pudieron cargar los libros. Por favor, inténtalo de nuevo más tarde.');
+    }
+
+    if (isPending) {
+        return (
+            <ActivityIndicator size="large"/>
+        )
+    }
 
     return (
         <View style={{backgroundColor: colors.background}} className="justify-center flex-1 p-4">
 
             <FlatList
-                data={libros}
+                data={data}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
                 renderItem={({item}) => (
-                    <View className="flex-1 p-2">
-                        <Link asChild href={`/libros/${item.id}`}>
-                            <Pressable>
-                                <View style={{backgroundColor: colors.card}} className="p-2 rounded-lg">
-                                    <Image src={item.imagen} className="w-full h-48 mb-2 rounded-lg"/>
-                                    <Text style={{color: colors.foreground}} className="font-bold text-base"
-                                          numberOfLines={1}>{item.titulo}</Text>
-                                    <Text style={{color: colors.foregroundMuted}} className="text-sm"
-                                          numberOfLines={1}>{item.autor}</Text>
-                                    <Text style={{color: colors.foregroundMuted}} className="text-xs"
-                                          numberOfLines={2}>{item.sinopsis}</Text>
-                                </View>
-                            </Pressable>
-                        </Link>
-                    </View>
-                )}
-            >
+                    <BookCard {...item} />
+                )}>
             </FlatList>
         </View>
     )

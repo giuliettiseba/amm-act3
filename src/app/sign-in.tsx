@@ -30,7 +30,8 @@ export default function SignInScreen() {
     return (
         <View className="flex-1 justify-center items-center bg-dark-primary-foreground">
             <View className="w-full max-w-sm bg-dark-background p-6 rounded-lg shadow-md">
-                <Text className="text-3xl font-bold text-center mb-6 text-dark-primary">Login</Text>
+
+                <Text className="text-3xl font-extralight text-center mb-6 text-dark-primary">Nexus</Text>
 
                 <TextInput
                     className="w-full p-3 mb-4 border bg-dark-border rounded-md text-dark-primary"

@@ -7,33 +7,10 @@ const LibrosLayout = () => {
     return (
         <Stack
             screenOptions={{
-                contentStyle: {
-                    backgroundColor: colors.background,
-                },
-            }}
-        >
-            <Stack.Screen
-                name="index"
-                options={{
-                    headerShown: false,
-                }}
-            />
-            <Stack.Screen
-                name="[id]"
-                options={{
-                    presentation: "modal",
-                    headerShown: true,
-                    headerTitle: "Detalle del Libro",
-                    headerStyle: {
-                        backgroundColor: colors.card,
-                    },
-                    headerTintColor: colors.foreground,
-                    headerTitleStyle: {
-                        color: colors.foreground,
-                        fontFamily: 'HankenGrotesk-SemiBold',
-                    },
-                }}
-            />
+                headerShown: false,
+                contentStyle: {backgroundColor: colors.background}
+            }}>
+            <Stack.Screen name="[id]" options={{presentation: 'modal'}}/>
         </Stack>
     )
 }
