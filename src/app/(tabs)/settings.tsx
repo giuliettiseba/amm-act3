@@ -1,4 +1,4 @@
-﻿import {View, Text, Switch, TouchableOpacity} from "react-native";
+﻿import {View, Text, Switch} from "react-native";
 import {useTheme} from "@/utils/ThemeContext";
 import {FontAwesome} from "@expo/vector-icons";
 
@@ -90,24 +90,6 @@ export default function SettingsScreen() {
                     </View>
                 </View>
 
-                {/* Quick Actions */}
-                <View
-                    style={{backgroundColor: colors.card, borderColor: colors.border}}
-                    className="p-4 rounded-lg border"
-                >
-                    <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}} className="text-lg mb-3">
-                        Appearance
-                    </Text>
-                    <TouchableOpacity
-                        onPress={toggleTheme}
-                        style={{backgroundColor: colors.primary}}
-                        className="py-3 px-4 rounded-lg"
-                    >
-                        <Text style={{color: colors.primaryForeground, fontFamily: 'HankenGrotesk-SemiBold'}} className="text-center">
-                            Toggle Theme
-                        </Text>
-                    </TouchableOpacity>
-                </View>
             </View>
         </View>
     );

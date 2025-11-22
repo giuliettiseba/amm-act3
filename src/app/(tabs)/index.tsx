@@ -1,4 +1,4 @@
-﻿import {Text, TouchableOpacity, View, ScrollView} from "react-native";
+﻿import {Text, TouchableOpacity, View} from "react-native";
 import { useRouter} from "expo-router";
 import {useTheme} from "@/utils/ThemeContext";
 import {FontAwesome} from "@expo/vector-icons";
@@ -8,7 +8,7 @@ export default function IndexScreen() {
     const router = useRouter();
 
     return (
-        <ScrollView style={{backgroundColor: colors.background}} className="flex-1 ">
+        <View style={{backgroundColor: colors.background}} className="flex-1 ">
 
             {/* Main Content */}
             <View className="p-6  ">
@@ -106,6 +106,6 @@ export default function IndexScreen() {
             </View>
 
 
-        </ScrollView>
+        </View>
     );
 }

@@ -1,121 +1,149 @@
-import {View, Text, ScrollView, TouchableOpacity} from "react-native";
+import {ActivityIndicator, Alert, FlatList, Text, TouchableOpacity, View} from "react-native";
 import {useTheme} from "@/utils/ThemeContext";
+import {useQuery} from "@tanstack/react-query";
+import {CafeteriaCategories} from "@/types/CafeteriaCategories";
+import {SvgUri} from 'react-native-svg';
+import {useRouter} from "expo-router";
 import {FontAwesome} from "@expo/vector-icons";
+import {useState} from "react";
+
 
 export default function CafeteriaScreen() {
     const {colors} = useTheme();
+    const router = useRouter();
+    const [showBanner, setShowBanner] = useState(true);
+    const [showWorkingHours, setShowWorkingHours] = useState(true);
 
-    const menuCategories = [
-        {
-            category: "Bebidas Calientes",
-            items: [
-                {name: "Café Americano", price: "$3.50", description: "Espresso con agua caliente"},
-                {name: "Cappuccino", price: "$4.50", description: "Espresso con leche espumada"},
-                {name: "Latte", price: "$4.50", description: "Espresso con leche"},
-                {name: "Té Chai", price: "$4.00", description: "Té especiado con leche"},
-            ]
-        },
-        {
-            category: "Bebidas Frías",
-            items: [
-                {name: "Frappé de Chocolate", price: "$5.50", description: "Café helado con chocolate"},
-                {name: "Smoothie de Frutas", price: "$5.00", description: "Frutas naturales"},
-                {name: "Limonada", price: "$3.00", description: "Limonada natural"},
-            ]
-        },
-        {
-            category: "Snacks",
-            items: [
-                {name: "Croissant", price: "$3.00", description: "Recién horneado"},
-                {name: "Muffin", price: "$3.50", description: "Diferentes sabores"},
-                {name: "Sándwich", price: "$6.50", description: "Jamón y queso o vegetariano"},
-            ]
-        }
-    ];
+    const {isPending, error, data} = useQuery({
+        queryKey: ['categorias', 'cafeteria'],
+        queryFn: () =>
+            fetch('https://mock.apidog.com/m1/1069422-1057565-default/products/categories').then((res) =>
+                res.json(),
+            ),
+    })
+
+    if (error) {
+        Alert.alert('Error', 'No se pudieron cargar las categorías. Por favor, inténtalo de nuevo más tarde.');
+    }
+
+    if (isPending) {
+        return (
+            <ActivityIndicator size="large"/>
+        )
+    }
+
+
+    // Mostrar categorías en una grilla de 2 columnas
+
+    const menuCategories = data as CafeteriaCategories[]
 
     return (
-        <ScrollView style={{backgroundColor: colors.background}} className="flex-1">
-
-
-            {/* Content */}
-            <View className="p-6">
-                {/* Info Card */}
-                <View style={{backgroundColor: colors.card, borderColor: colors.border}} className="p-4 rounded-xl border mb-6">
+        <View style={{flex: 1, backgroundColor: colors.background}} className="p-4 pt-6">
+            {/* Info Card */}
+            {showWorkingHours && (
+                <View style={{backgroundColor: colors.card, borderColor: colors.border}}
+                      className="p-4 rounded-xl border mb-6">
+                    <TouchableOpacity
+                        onPress={() => setShowWorkingHours(false)}
+                        style={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            zIndex: 1,
+                            padding: 4,
+                        }}
+                        hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}
+                    >
+                        <FontAwesome name="close" size={16} color={colors.primary}/>
+                    </TouchableOpacity>
                     <View className="flex-row items-center justify-between">
                         <View className="flex-1">
                             <View className="flex-row items-center mb-2">
-                                <FontAwesome name="clock-o" size={20} color={colors.warning} />
-                                <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}} className="ml-2 text-base">
+                                <FontAwesome name="clock-o" size={20} color={colors.warning}/>
+                                <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}}
+                                      className="ml-2 text-base">
                                     Horario de Atención
                                 </Text>
                             </View>
-                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-sm">
+                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
+                                  className="text-sm">
                                 Lunes a Viernes: 7:00 AM - 7:00 PM
                             </Text>
-                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-sm">
+                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
+                                  className="text-sm">
                                 Sábados: 8:00 AM - 3:00 PM
                             </Text>
                         </View>
-                        <FontAwesome name="coffee" size={40} color={colors.warning + '40'} />
+                        <FontAwesome name="coffee" size={40} color={colors.warning + '40'}/>
                     </View>
-                </View>
+                </View>)}
 
-                {/* Menu */}
-                {menuCategories.map((category, categoryIndex) => (
-                    <View key={categoryIndex} className="mb-6">
-                        <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-Bold'}} className="text-2xl mb-4">
-                            {category.category}
-                        </Text>
-                        <View className="gap-3">
-                            {category.items.map((item, itemIndex) => (
-                                <View
-                                    key={itemIndex}
-                                    style={{backgroundColor: colors.card, borderColor: colors.border}}
-                                    className="p-4 rounded-xl border"
-                                >
-                                    <View className="flex-row justify-between items-start mb-2">
-                                        <View className="flex-1">
-                                            <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-Bold'}} className="text-lg mb-1">
-                                                {item.name}
-                                            </Text>
-                                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-sm">
-                                                {item.description}
-                                            </Text>
-                                        </View>
-                                        <Text style={{color: colors.warning, fontFamily: 'HankenGrotesk-Bold'}} className="text-lg ml-2">
-                                            {item.price}
-                                        </Text>
-                                    </View>
-                                    <TouchableOpacity
-                                        style={{backgroundColor: colors.warning}}
-                                        className="py-2 px-4 rounded-lg self-end"
-                                    >
-                                        <Text style={{color: '#FFFFFF', fontFamily: 'HankenGrotesk-SemiBold'}} className="text-sm">
-                                            Ordenar
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                            ))}
-                        </View>
-                    </View>
-                ))}
+            <FlatList style={{backgroundColor: colors.background}} className="flex-1"
+                      data={menuCategories}
+                      keyExtractor={(item, index) => index.toString()}
+                      renderItem={({item: category}) => (
 
-                {/* Promo Banner */}
-                <View style={{backgroundColor: colors.primary + '20', borderColor: colors.primary}} className="p-5 rounded-xl border mt-4">
+
+                          <TouchableOpacity
+                              onPress={() => router.push(`/cafeteria/categoria/${category.nombre}`)}>
+                              <View className="p-6">
+                                  <SvgUri
+                                      uri={category.imagen}
+                                      width="100%"
+                                      height={200}
+                                      fill={colors.primary}
+                                      className="rounded"
+                                      style={{backgroundColor: colors.border}}
+                                  />
+
+                                  <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-Bold'}}
+                                        className="text-2xl mb-4">
+                                      {category.nombre}
+                                  </Text>
+                                  <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
+                                        className="text-sm mb-4">
+                                      {category.descripcion}
+                                  </Text>
+                              </View>
+                          </TouchableOpacity>
+
+                      )}
+            />
+
+            {/* Promo Banner */}
+            {showBanner && (
+                <View
+                    style={{backgroundColor: colors.primary + '20', borderColor: colors.primary, position: 'relative'}}
+                    className="p-5 rounded-xl border mt-4">
+                    <TouchableOpacity
+                        onPress={() => setShowBanner(false)}
+                        style={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            zIndex: 1,
+                            padding: 4,
+                        }}
+                        hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}
+                    >
+                        <FontAwesome name="close" size={16} color={colors.primary}/>
+                    </TouchableOpacity>
                     <View className="flex-row items-center">
-                        <FontAwesome name="star" size={24} color={colors.primary} />
+                        <FontAwesome name="star" size={24} color={colors.primary}/>
                         <View className="flex-1 ml-3">
-                            <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-Bold'}} className="text-lg mb-1">
+                            <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-Bold'}}
+                                  className="text-lg mb-1">
                                 Oferta Especial
                             </Text>
-                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-sm">
+                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
+                                  className="text-sm">
                                 Café + Croissant por solo $5.00
                             </Text>
                         </View>
                     </View>
                 </View>
-            </View>
-        </ScrollView>
+            )}
+        </View>
     );
 }
 
