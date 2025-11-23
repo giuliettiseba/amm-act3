@@ -66,50 +66,60 @@ const BookCard = ({
 
     return (
 
-        <View className="flex-1 p-2">
+
+        <View className="flex-1 p-4 m-2 rounded-lg items-center justify-between"
+        style={{
+            backgroundColor: themeColors.backgroundSecondary
+        }}
+        >
             <Pressable
                 onPress={onClick}
             >
-                <View style={{backgroundColor: themeColors.card}} className="p-2 rounded-lg">
-                    {
-                        imagen?.endsWith("svg") ?
-                            (
-                                <SvgUri
-                                    uri={imagen}
-                                    width="100%"
-                                    height={200}
-                                    fill={themeColors.primary}
-                                    className="rounded"
-                                    style={{backgroundColor: themeColors.border}}
-                                />
-                            ) : (
-                                <Image src={imagen} className="w-full h-48 mb-2 rounded-lg"/>
-                            )}
+                <View style={{}}>
+                    {imagen?.endsWith("svg") ?
+                        (
+                            <SvgUri
+                                uri={imagen}
+                                height="200" width="200"
+                                fill={themeColors.primary}
 
+                            />
+                        ) : (
+                            <Image src={imagen}
+                                   style={{
+                                       height: 200,
+                                       minWidth:"100%",
+                                       resizeMode: 'stretch',
+                                   }}
+                            />
+                        )}
 
-                    <Text style={{color: themeColors.foreground}} className="font-bold text-base"
-                          numberOfLines={1}>{titulo}</Text>
-                    <Text style={{color: themeColors.foregroundMuted}} className="text-sm"
-                          numberOfLines={1}>{subtitulo}</Text>
-                    <Text style={{color: themeColors.foregroundMuted}} className="text-xs"
-                          numberOfLines={2}>{descripcion}</Text>
-
-
-                    {labelBoton &&
-                        <TouchableOpacity
-                            style={{backgroundColor: buttonColor.Background}}
-                            className="py-2 px-4 rounded-lg self-end"
-                            onPress={callbackBoton}
-                            disabled={isDisabled || isLoading}
-                        >
-                            <Text style={{color: buttonColor.Label, fontFamily: 'HankenGrotesk-SemiBold'}}
-                                  className="text-sm">
-                                {labelBoton}
-                            </Text>
-
-                        </TouchableOpacity>}
                 </View>
+                <View >
+
+                    <Text style={{color: themeColors.foreground}} className="font-bold text-center mt-2"
+                          numberOfLines={1}>{titulo}</Text>
+                    <Text style={{color: themeColors.foregroundMuted}} className="text-sm text-center "
+                          numberOfLines={1}>{subtitulo}</Text>
+                    <Text style={{color: themeColors.foregroundMuted}} className="text-xs text-center mb-4"
+                          numberOfLines={2}>{descripcion}</Text>
+                </View>
+
             </Pressable>
+            {labelBoton &&
+                <TouchableOpacity
+                    style={{backgroundColor: buttonColor.Background}}
+                    className="h-fit"
+                    onPress={callbackBoton}
+                    disabled={isDisabled || isLoading}
+                >
+                    <Text style={{color: buttonColor.Label, fontFamily: 'HankenGrotesk-SemiBold'}}
+                          className="text-sm">
+                        {labelBoton}
+                    </Text>
+
+                </TouchableOpacity>}
+            {/*</Pressable>*/}
         </View>
     )
 }
