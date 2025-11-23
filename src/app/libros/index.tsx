@@ -1,58 +1,51 @@
 ﻿import {ActivityIndicator, FlatList, View} from "react-native";
 import {useTheme} from "@/contexts/ThemeContext";
-import {useQuery} from "@tanstack/react-query";
 import BookCard from "@/components/BookCard";
-import * as Haptics from 'expo-haptics';
-import {API_BASE_URL} from "@/utils/constants";
-import {useAlertWithHaptics} from "@/hooks/useAlertWithHaptics";
+import {LIBROS_ENDPOINT} from "@/utils/constants";
+import useApiClient from "@/hooks/useApiClient";
+import {ErrorMessage} from "@/components/ErrorMessage";
+import {hapticFeedback} from "@/utils/nexus_hapatics";
+import {Book} from "@/types/Book";
+
 
 const LibrosCatalogo = () => {
 
     const {themeColors} = useTheme();
-    const {showAlert} = useAlertWithHaptics()
+    const {isPending, error, data} = useApiClient<Book[]>(
+        LIBROS_ENDPOINT, ["libros"]);
 
-
-    const {isPending, error, data} = useQuery({
-        queryKey: ['libro'],
-        queryFn: () =>
-            fetch(`${API_BASE_URL}/books`).then((res) =>
-                res.json(),
-            ),
-    })
-
-
-    if (error) {
-        return showAlert('Error', 'No se pudieron cargar los libros. Por favor, inténtalo de nuevo más tarde.', 'error');
-    }
-
-    if (isPending) {
-        return (
-            <ActivityIndicator size="large"/>
-        )
-    }
-
-    const handleScroll = (event: { nativeEvent: { contentOffset: { y: any; }; }; }) => {
+    const handleScroll = async (event: { nativeEvent: { contentOffset: { y: any; }; }; }) => {
         const scrollY = event.nativeEvent.contentOffset.y;
         if (Math.round(scrollY) % 10 === 0) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            console.log('Scrolled to:', Math.round(scrollY));
+            await hapticFeedback('light');
         }
     }
 
     return (
-        <View style={{backgroundColor: themeColors.background}} className="justify-center flex-1 p-4">
+        <View style={{
+            flex: 1,
+            backgroundColor: themeColors.background,
+            padding: 10,
+            alignContent: 'center',
+            justifyContent: 'center'
+        }}>
+            {isPending && <ActivityIndicator size="large" className="align-middle"/>}
 
-            <FlatList
-                data={data}
-                onScroll={handleScroll}
-                keyExtractor={(item) => item.id.toString()}
-                numColumns={2}
-                renderItem={({item}) => (
-                    <BookCard {...item} />
-                )}>
-            </FlatList>
+            {error && <ErrorMessage message={"Error al cargar los libros. " + error}/>}
+
+            {data && !error && !isPending &&
+                <FlatList
+                    data={data}
+                    onScroll={handleScroll}
+                    keyExtractor={(item) => item.id.toString()}
+                    numColumns={2}
+                    renderItem={({item}) => (
+                        <BookCard {...item} />
+                    )}/>
+            }
         </View>
     )
+
 }
 
 export default LibrosCatalogo;

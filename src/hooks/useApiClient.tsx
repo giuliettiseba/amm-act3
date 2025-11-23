@@ -3,7 +3,10 @@ import {API_BASE_URL} from "@/utils/constants";
 import {useAlertWithHaptics} from "@/hooks/useAlertWithHaptics";
 import axios from "axios";
 
-function useApiClient<T>(route: string, keys: string[], paramQuery?: { key: string; value: string | string[]  }) {
+function useApiClient<T>(route: string, keys: string[],
+                         paramQuery?: { key: string; value: string | string[] },
+                         pathParam?: string
+) {
     const {showAlert} = useAlertWithHaptics();
 
     let url = `${API_BASE_URL}${route}`;
@@ -11,7 +14,11 @@ function useApiClient<T>(route: string, keys: string[], paramQuery?: { key: stri
         url = url + "?" + paramQuery.key + '=' + paramQuery.value;
     }
 
-    const {data, error, isPending} =  useQuery({
+    if (pathParam) {
+        url = url + "/" + pathParam;
+    }
+
+    const {data, error, isPending} = useQuery({
         queryKey: keys,
         queryFn: async () => {
             const response = await axios.get<T>(url);

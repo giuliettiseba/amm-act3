@@ -28,7 +28,7 @@ const RootNavigator = () => {
             </Stack.Protected>
             <Stack.Protected guard={!isLoggedIn}>
                 <Stack.Screen name="sign-in" options={{headerShown: false}}/>
-                Î </Stack.Protected>
+                </Stack.Protected>
         </Stack>
     );
 };

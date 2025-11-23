@@ -64,7 +64,7 @@ export default function RootLayout() {
     return (
         <ThemeProvider>
             <QueryClientProvider client={queryClient}>
-                <StatusBar style={theme === "dark" ? "light" : "dark"}/>
+                <StatusBar style={theme === "dark" ? "dark" : "light"}/>
                 <RootNavigator/>
             </QueryClientProvider>
         </ThemeProvider>
