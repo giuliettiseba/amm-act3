@@ -27,8 +27,8 @@ import {Animated, Easing, Platform, Vibration} from 'react-native';
 import * as Haptics from 'expo-haptics';
 
 
-type FeedbackType = 'success' | 'error' | 'warning' | 'light' | 'medium' | 'heavy' | 'soft' | 'rigid' | "selection";
-type ReactionType = 'mal' | 'normal' | 'bien' | 'excelente' | 'feliz';
+export type FeedbackType = 'success' | 'error' | 'warning' | 'light' | 'medium' | 'heavy' | 'soft' | 'rigid' | "selection";
+export type ReactionType = 'mal' | 'normal' | 'bien' | 'excelente' | 'feliz';
 
 export const hapticFeedback = async (type: FeedbackType) => {
     switch (type) {

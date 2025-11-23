@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, TouchableOpacity, Linking} from "react-native";
+import {Linking, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {useTheme} from "@/contexts/ThemeContext";
 import {FontAwesome} from "@expo/vector-icons";
 

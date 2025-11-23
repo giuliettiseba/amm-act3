@@ -10,9 +10,7 @@ const BookCard = (book: Book) => {
     const {themeColors} = useTheme();
     const router = useRouter();
 
-
     return(
-
         <View className="flex-1 p-2">
             <Pressable
                 onPress={() => {

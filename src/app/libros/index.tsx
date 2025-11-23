@@ -1,26 +1,28 @@
-﻿import {ActivityIndicator, Alert, FlatList, View} from "react-native";
+﻿import {ActivityIndicator, FlatList, View} from "react-native";
 import {useTheme} from "@/contexts/ThemeContext";
 import {useQuery} from "@tanstack/react-query";
 import BookCard from "@/components/BookCard";
 import * as Haptics from 'expo-haptics';
+import {API_BASE_URL} from "@/utils/constants";
+import {useAlertWithHaptics} from "@/hooks/useAlertWithHaptics";
 
 const LibrosCatalogo = () => {
 
     const {themeColors} = useTheme();
+    const {showAlert} = useAlertWithHaptics()
 
 
     const {isPending, error, data} = useQuery({
         queryKey: ['libro'],
         queryFn: () =>
-            fetch('https://mock.apidog.com/m1/1069422-1057565-default/books').then((res) =>
+            fetch(`${API_BASE_URL}/books`).then((res) =>
                 res.json(),
             ),
     })
 
-    if (error) {
-        Alert.alert('Error', 'No se pudieron cargar los libros. Por favor, inténtalo de nuevo más tarde.');
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
 
+    if (error) {
+        return showAlert('Error', 'No se pudieron cargar los libros. Por favor, inténtalo de nuevo más tarde.', 'error');
     }
 
     if (isPending) {

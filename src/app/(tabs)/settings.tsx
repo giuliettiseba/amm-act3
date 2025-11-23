@@ -1,8 +1,8 @@
-﻿import {View, Text, Switch, ScrollView} from "react-native";
+﻿import {ScrollView, Switch, Text, View} from "react-native";
 import {useTheme} from "@/contexts/ThemeContext";
 import {FontAwesome} from "@expo/vector-icons";
 import HapticsDemo from "@/components/HapticsDemo";
-
+import {DeviceInfoDemo} from "@/components/DeviceInfoDemo";
 
 
 export default function SettingsScreen() {
@@ -10,13 +10,11 @@ export default function SettingsScreen() {
     const isDark = theme === "dark";
 
     return (
-        <View style={{flex: 1, backgroundColor: themeColors.background}}>
-            <View className="p-4 gap-4">
-
+        <ScrollView style={{flex: 1, backgroundColor: themeColors.background}}>
                 {/* Theme Toggle Card */}
                 <View
                     style={{backgroundColor: themeColors.card, borderColor: themeColors.border}}
-                    className="p-4 rounded-lg border"
+                    className="p-4 rounded-lg border my-4"
                 >
                     <View className="flex-row items-center justify-between">
                         <View className="flex-row items-center gap-3 flex-1">
@@ -43,58 +41,8 @@ export default function SettingsScreen() {
                     </View>
                 </View>
 
-                {/* Theme Preview Card */}
-                <View
-                    style={{backgroundColor: themeColors.card, borderColor: themeColors.border}}
-                    className="p-4 rounded-lg border"
-                >
-                    <Text style={{color: themeColors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}} className="text-lg mb-3">
-                        Current Theme
-                    </Text>
-                    <View className="flex-row gap-2 mb-3">
-                        <View className="flex-1">
-                            <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-xs mb-1">
-                                Primary
-                            </Text>
-                            <View
-                                style={{backgroundColor: themeColors.primary}}
-                                className="h-12 rounded-lg"
-                            />
-                        </View>
-                        <View className="flex-1">
-                            <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-xs mb-1">
-                                Secondary
-                            </Text>
-                            <View
-                                style={{backgroundColor: themeColors.secondary}}
-                                className="h-12 rounded-lg"
-                            />
-                        </View>
-                    </View>
-                    <View className="flex-row gap-2">
-                        <View className="flex-1">
-                            <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-xs mb-1">
-                                Success
-                            </Text>
-                            <View
-                                style={{backgroundColor: themeColors.success}}
-                                className="h-12 rounded-lg"
-                            />
-                        </View>
-                        <View className="flex-1">
-                            <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}} className="text-xs mb-1">
-                                Error
-                            </Text>
-                            <View
-                                style={{backgroundColor: themeColors.error}}
-                                className="h-12 rounded-lg"
-                            />
-                        </View>
-                    </View>
-                </View>
+                <DeviceInfoDemo />
                 <HapticsDemo />
-
-            </View>
-        </View>
+        </ScrollView>
     );
 }

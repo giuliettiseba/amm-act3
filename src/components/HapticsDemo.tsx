@@ -1,16 +1,21 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {hapticFeedback, hapticReaction} from "@/utils/nexus_hapatics";
+import {useTheme} from "@/contexts/ThemeContext";
 
 
 function HapticsDemo() {
 
+    const {themeColors} = useTheme();
     // List all the aptics in a array
     const feedbackTypes = ['success', 'error', 'warning', 'light', 'medium', 'heavy', 'soft', 'rigid', 'selection']
     const reactionTypes = ['mal', 'normal', 'bien', 'excelente', 'feliz']
 
 
     return (
-        <View style={styles.container}>
+
+        <View style={{backgroundColor: themeColors.card, borderColor: themeColors.border}}
+              className="p-4 rounded-lg border my-2" >
+
             <Text style={styles.title} className="text-center color-dark-foreground">Haptics Demo</Text>
 
             <Text style={styles.sectionLabel} className={"color-dark-info"}>Feedback Types:</Text>
