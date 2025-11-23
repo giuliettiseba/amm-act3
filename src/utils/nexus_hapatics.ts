@@ -110,11 +110,16 @@ export const hapticReaction = (type: ReactionType) => {
     // Cancelamos cualquier vibración previa para evitar superposiciones "sucias"
     Vibration.cancel();
 
-    const ONE_SECOND_IN_MS = 1000;
-    // multiply each entry of the array by ONE_SECOND_IN_MS
-    const scaledPattern = selectedPattern.map(entry => entry * ONE_SECOND_IN_MS);
-    // Ejecutamos el patrón
-    Vibration.vibrate(scaledPattern, false);
+    if (Platform.OS === 'ios') {
+        const ONE_SECOND_IN_MS = 1000;
+        // multiply each entry of the array by ONE_SECOND_IN_MS
+        const scaledPattern = selectedPattern.map(entry => entry * ONE_SECOND_IN_MS);
+        Vibration.vibrate(scaledPattern, false);
+
+    }else {
+        Vibration.vibrate(selectedPattern, false);
+    }
+
 };
 
 export const animatedReaction = (type: ReactionType, loadingAnim: Animated.Value) => {
