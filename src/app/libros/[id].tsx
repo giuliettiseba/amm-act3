@@ -1,5 +1,5 @@
-﻿import {ActivityIndicator, Image, Text, TouchableOpacity, View} from "react-native";
-import {useLocalSearchParams, useRouter} from "expo-router";
+﻿import {ActivityIndicator, Image, Text, View} from "react-native";
+import {useLocalSearchParams} from "expo-router";
 import {useTheme} from "@/contexts/ThemeContext";
 import {Book} from "@/types/Book";
 import {LIBROS_ENDPOINT} from "@/utils/constants";
@@ -9,8 +9,6 @@ import {ErrorMessage} from "@/components/ErrorMessage";
 const LibroDetalle = () => {
     const {id} = useLocalSearchParams();
     const {themeColors} = useTheme();
-    const router = useRouter();
-
     const {isPending, error, data} = useApiClient<Book>(
         LIBROS_ENDPOINT, ["libro"], undefined, id as string);
 
@@ -84,20 +82,6 @@ const LibroDetalle = () => {
                     )}
                 </>
             }
-
-
-            <TouchableOpacity
-                onPress={() => {
-                    router.back()
-                }}
-                style={{backgroundColor: themeColors.primary}}
-                className="py-3 px-4 rounded-lg"
-            >
-                <Text style={{color: themeColors.primaryForeground, fontFamily: 'HankenGrotesk-SemiBold'}}
-                      className="text-center">
-                    Volver a catalogo
-                </Text>
-            </TouchableOpacity>
         </View>
     )
 }

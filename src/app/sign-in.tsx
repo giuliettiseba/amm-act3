@@ -79,7 +79,8 @@ export default function SignInScreen() {
                     keyboardType="email-address"
                     hint={validEmail ? undefined : 'Please enter a valid email address'}
                     value={email}
-                    setValue={setEmail}                 />
+                    setValue={setEmail}
+                />
 
 
                 <MorphingGlassTextInput
