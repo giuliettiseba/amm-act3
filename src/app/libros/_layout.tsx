@@ -1,14 +1,14 @@
 import {Stack} from "expo-router";
-import {useTheme} from "@/utils/ThemeContext";
+import {useTheme} from "@/contexts/ThemeContext";
 
 const LibrosLayout = () => {
-    const {colors} = useTheme();
+    const {themeColors} = useTheme();
 
     return (
         <Stack
             screenOptions={{
                 headerShown: false,
-                contentStyle: {backgroundColor: colors.background}
+                contentStyle: {backgroundColor: themeColors.background}
             }}>
             <Stack.Screen name="[id]" options={{presentation: 'modal'}}/>
         </Stack>

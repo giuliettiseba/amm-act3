@@ -7,7 +7,7 @@ type ThemeContextType = {
     theme: Theme;
     setTheme: (theme: Theme) => void;
     toggleTheme: () => void;
-    colors: {
+    themeColors: {
         background: string;
         backgroundSecondary: string;
         backgroundMuted: string;
@@ -43,7 +43,7 @@ const lightColors = {
     cardForeground: "#1E293B",
     border: "#E2E8F0",
     input: "#F1F5F9",
-    ring: "#3B82F6",
+    ring: "#2b60b7",
     primary: "#3B82F6",
     primaryForeground: "#FFFFFF",
     secondary: "#F1F5F9",
@@ -79,10 +79,10 @@ const darkColors = {
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
     const {theme, setTheme, toggleTheme} = useThemeStore();
 
-    const colors = theme === "dark" ? darkColors : lightColors;
+    const themeColors = theme === "dark" ? darkColors : lightColors;
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme, toggleTheme, colors}}>
+        <ThemeContext.Provider value={{theme, setTheme, toggleTheme, themeColors}}>
             {children}
         </ThemeContext.Provider>
     );
@@ -95,4 +95,3 @@ export const useTheme = () => {
     }
     return context;
 };
-

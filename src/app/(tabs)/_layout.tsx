@@ -1,25 +1,25 @@
 import {Tabs} from "expo-router";
 import {FontAwesome} from "@expo/vector-icons";
-import {useTheme} from "@/utils/ThemeContext";
+import {useTheme} from "@/contexts/ThemeContext";
 
 export default function TabsLayout() {
-    const {colors} = useTheme();
+    const {themeColors} = useTheme();
 
     return (
         <Tabs
             screenOptions={{
                 tabBarStyle: {
-                    backgroundColor: colors.card,
-                    borderTopColor: colors.border,
+                    backgroundColor: themeColors.card,
+                    borderTopColor: themeColors.border,
                 },
-                tabBarActiveTintColor: colors.primary,
-                tabBarInactiveTintColor: colors.foregroundMuted,
+                tabBarActiveTintColor: themeColors.primary,
+                tabBarInactiveTintColor: themeColors.foregroundMuted,
                 headerStyle: {
-                    backgroundColor: colors.card,
+                    backgroundColor: themeColors.card,
                 },
-                headerTintColor: colors.foreground,
+                headerTintColor: themeColors.foreground,
                 headerTitleStyle: {
-                    color: colors.foreground,
+                    color: themeColors.foreground,
                     fontFamily: 'HankenGrotesk-SemiBold',
                 },
             }}

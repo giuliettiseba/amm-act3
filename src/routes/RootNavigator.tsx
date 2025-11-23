@@ -1,20 +1,20 @@
 import {useAuthStore} from "@/utils/authStore";
-import {useTheme} from "@/utils/ThemeContext";
+import {useTheme} from "@/contexts/ThemeContext";
 import {Stack} from "expo-router";
 
 const RootNavigator = () => {
     const {isLoggedIn} = useAuthStore();
-    const {colors} = useTheme();
+    const {themeColors} = useTheme();
 
     return (
         <Stack
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: colors.card,
+                    backgroundColor: themeColors.card,
                 },
-                headerTintColor: colors.primary,
+                headerTintColor: themeColors.primary,
                 headerTitleStyle: {
-                    color: colors.foreground,
+                    color: themeColors.foreground,
                     fontFamily: 'HankenGrotesk-SemiBold',
                 },
             }}

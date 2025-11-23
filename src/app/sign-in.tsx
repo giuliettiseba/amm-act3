@@ -1,14 +1,23 @@
-﻿import {ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View} from "react-native";
-import React, {useState} from "react";
+﻿import {Alert, Text, View} from "react-native";
+import React, {useEffect, useState} from "react";
 import {useAuthStore} from "@/utils/authStore";
 import * as Haptics from 'expo-haptics';
+import {validateEmail} from "@/utils/utils";
+import {hapticFeedback} from "@/utils/nexus_hapatics";
+import MorphingGlassButton from "@/components/MorphingGlassButton";
+import {MorphingGlassTextInput} from "@/components/MorphingGlassTextInput";
+
 
 export default function SignInScreen() {
+
+    const MAX_PASSWORD_LENGTH = 3;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const {logIn} = useAuthStore();
+    const [validEmail, setValidEmail] = useState(true);
+    const [validPassword, setValidPassword] = useState(true);
 
     const handleLogin = async () => {
         if (!email || !password) {
@@ -35,45 +44,67 @@ export default function SignInScreen() {
     };
 
 
+    useEffect(() => {
+
+
+        if (password.length >= MAX_PASSWORD_LENGTH) {
+            setValidPassword(true);
+        } else {
+            setValidPassword(false);
+        }
+
+
+        if (validateEmail(email)) {
+            setValidEmail(true);
+        } else {
+            setValidEmail(false);
+        }
+
+
+        hapticFeedback(validPassword && validEmail ? 'selection' : 'light');
+    }, [password, email]);
+
+
+    const readyToLogin = validEmail && validPassword;
+
+
     return (
         <View className="flex-1 justify-center items-center bg-dark-primary-foreground">
             <View className="w-full max-w-sm bg-dark-background p-6 rounded-lg shadow-md">
 
                 <Text className="text-3xl font-extralight text-center mb-6 text-dark-primary">Nexus</Text>
 
-                <TextInput
-                    className="w-full p-3 mb-4 border bg-dark-border rounded-md text-dark-primary"
+                <MorphingGlassTextInput
                     placeholder="Email"
-                    placeholderTextColor="#a0aec0"
                     keyboardType="email-address"
+                    hint={validEmail ? undefined : 'Please enter a valid email address'}
                     value={email}
-                    onChangeText={setEmail}
-                />
+                    setValue={setEmail}                 />
 
-                <TextInput
-                    className="w-full p-3 mb-4 border bg-dark-border rounded-md text-dark-primary"
+
+                <MorphingGlassTextInput
                     placeholder="Password"
-                    placeholderTextColor="#a0aec0"
+                    keyboardType="visible-password"
+                    hint={validPassword ? undefined : `Password must be at least ${MAX_PASSWORD_LENGTH} characters`}
                     secureTextEntry
                     value={password}
-                    onChangeText={setPassword}
+                    setValue={setPassword}
                 />
-
-                <TouchableOpacity
-                    className="w-full bg-dark-primary p-3 rounded-md items-center"
-                    onPress={handleLogin}
-                >
-                    {isLoading ? (
-                        <ActivityIndicator color="#fff"/>
-                    ) : (
-                        <Text className="text-dark-background text-lg font-semibold">Log In</Text>
-                    )}
-                </TouchableOpacity>
-
-                <TouchableOpacity className="mt-4">
-                    <Text className="text-dark-foreground-muted text-center">Forgot Password?</Text>
-                </TouchableOpacity>
             </View>
+
+            <MorphingGlassButton
+                readyToLogin={readyToLogin}
+                isLoading={isLoading}
+                errorMessage={
+                    !validEmail
+                        ? "Invalid email address"
+                        : !validPassword
+                            ? "Password too short"
+                            : null
+                }
+                onPress={handleLogin}/>
+            <Text className="text-dark-foreground-muted text-center">Forgot Password?</Text>
+
         </View>
     )
 }

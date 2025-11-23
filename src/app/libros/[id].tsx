@@ -1,12 +1,12 @@
-﻿import {ActivityIndicator, Alert, Button, Image, Text, TouchableOpacity, View} from "react-native";
+﻿import {ActivityIndicator, Alert, Image, Text, TouchableOpacity, View} from "react-native";
 import {useLocalSearchParams, useRouter} from "expo-router";
-import {useTheme} from "@/utils/ThemeContext";
+import {useTheme} from "@/contexts/ThemeContext";
 import {useQuery} from "@tanstack/react-query";
 import {Book} from "@/types/Book";
 
 const LibroDetalle = () => {
         const {id} = useLocalSearchParams();
-        const {colors} = useTheme();
+        const {themeColors} = useTheme();
         const router = useRouter();
 
         // const libro = libros.find((libro) => libro.id.toString() === id);
@@ -33,8 +33,8 @@ const LibroDetalle = () => {
 
         if (!libro) {
             return (
-                <View style={{backgroundColor: colors.background}} className="flex-1 justify-center items-center">
-                    <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-Regular'}}>
+                <View style={{backgroundColor: themeColors.background}} className="flex-1 justify-center items-center">
+                    <Text style={{color: themeColors.foreground, fontFamily: 'HankenGrotesk-Regular'}}>
                         Libro no encontrado.
                     </Text>
                 </View>
@@ -43,13 +43,13 @@ const LibroDetalle = () => {
 
 
         return (
-            <View style={{backgroundColor: colors.background }} className="flex-1 pt-5 mx-6">
+            <View style={{backgroundColor: themeColors.background }} className="flex-1 pt-5 mx-6">
 
-                <Text className="text-2xl mb-2 text-center" style={{color: colors.cardForeground, fontFamily: 'HankenGrotesk-Bold'}}>
+                <Text className="text-2xl mb-2 text-center" style={{color: themeColors.cardForeground, fontFamily: 'HankenGrotesk-Bold'}}>
                     {libro.titulo}
                 </Text>
 
-                <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Medium'}}
+                <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Medium'}}
                       className="text-lg mb-4 text-center" >
                     {libro.autor}
                 </Text>
@@ -65,11 +65,11 @@ const LibroDetalle = () => {
 
 
                     <View className="mb-4">
-                        <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}}
+                        <Text style={{color: themeColors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}}
                               className="text-lg mb-2">
                             Sinopsis
                         </Text>
-                        <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
+                        <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
                               className="text-base leading-6">
                             {libro.sinopsis}
                         </Text>
@@ -77,11 +77,11 @@ const LibroDetalle = () => {
 
                     {libro.categoria && (
                         <View className="mb-4">
-                            <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}}
+                            <Text style={{color: themeColors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}}
                                   className="text-lg mb-2">
                                 Género
                             </Text>
-                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
+                            <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
                                   className="text-base">
                                 {libro.categoria}
                             </Text>
@@ -90,11 +90,11 @@ const LibroDetalle = () => {
 
                     {libro.año && (
                         <View className="mb-4">
-                            <Text style={{color: colors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}}
+                            <Text style={{color: themeColors.foreground, fontFamily: 'HankenGrotesk-SemiBold'}}
                                   className="text-lg mb-2">
                                 Año de publicación
                             </Text>
-                            <Text style={{color: colors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
+                            <Text style={{color: themeColors.foregroundMuted, fontFamily: 'HankenGrotesk-Regular'}}
                                   className="text-base">
                                 {libro.año}
                             </Text>
@@ -106,10 +106,10 @@ const LibroDetalle = () => {
                     onPress={() => {
                         router.back()
                     }}
-                    style={{backgroundColor: colors.primary}}
+                    style={{backgroundColor: themeColors.primary}}
                     className="py-3 px-4 rounded-lg"
                 >
-                    <Text style={{color: colors.primaryForeground, fontFamily: 'HankenGrotesk-SemiBold'}} className="text-center">
+                    <Text style={{color: themeColors.primaryForeground, fontFamily: 'HankenGrotesk-SemiBold'}} className="text-center">
                         Volver a catalogo
                     </Text>
                 </TouchableOpacity>

@@ -1,11 +1,12 @@
 ﻿import {ActivityIndicator, Alert, FlatList, View} from "react-native";
-import {useTheme} from "@/utils/ThemeContext";
+import {useTheme} from "@/contexts/ThemeContext";
 import {useQuery} from "@tanstack/react-query";
 import BookCard from "@/components/BookCard";
+import * as Haptics from 'expo-haptics';
 
 const LibrosCatalogo = () => {
 
-    const {colors} = useTheme();
+    const {themeColors} = useTheme();
 
 
     const {isPending, error, data} = useQuery({
@@ -18,6 +19,8 @@ const LibrosCatalogo = () => {
 
     if (error) {
         Alert.alert('Error', 'No se pudieron cargar los libros. Por favor, inténtalo de nuevo más tarde.');
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+
     }
 
     if (isPending) {
@@ -26,12 +29,20 @@ const LibrosCatalogo = () => {
         )
     }
 
+    const handleScroll = (event: { nativeEvent: { contentOffset: { y: any; }; }; }) => {
+        const scrollY = event.nativeEvent.contentOffset.y;
+        if (Math.round(scrollY) % 10 === 0) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            console.log('Scrolled to:', Math.round(scrollY));
+        }
+    }
+
     return (
-        <View style={{backgroundColor: colors.background}} className="justify-center flex-1 p-4">
+        <View style={{backgroundColor: themeColors.background}} className="justify-center flex-1 p-4">
 
             <FlatList
                 data={data}
-
+                onScroll={handleScroll}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
                 renderItem={({item}) => (

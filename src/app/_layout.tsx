@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import {useAuthStore} from "@/utils/authStore";
 import {Platform} from "react-native";
 import {StatusBar} from "expo-status-bar";
-import {ThemeProvider} from "@/utils/ThemeContext";
+import {ThemeProvider} from "@/contexts/ThemeContext";
 import {useThemeStore} from "@/utils/themeStore";
 import {useFonts} from "expo-font";
 import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
