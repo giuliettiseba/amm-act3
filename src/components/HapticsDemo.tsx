@@ -1,6 +1,5 @@
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {hapticFeedback, hapticReaction} from "@/utils/nexus_hapatics";
-
 
 
 function HapticsDemo() {
@@ -12,9 +11,9 @@ function HapticsDemo() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Haptics Demo</Text>
+            <Text style={styles.title} className="text-center color-dark-foreground">Haptics Demo</Text>
 
-            <Text style={styles.sectionLabel}>Feedback Types:</Text>
+            <Text style={styles.sectionLabel} className={"color-dark-info"}>Feedback Types:</Text>
             <View style={styles.grid}>
                 {feedbackTypes.map((type) => (
                     <TouchableOpacity
@@ -27,7 +26,7 @@ function HapticsDemo() {
                 ))}
             </View>
 
-            <Text style={[styles.sectionLabel, {marginTop: 12}]}>Reaction Types:</Text>
+            <Text style={[styles.sectionLabel, {marginTop: 12}]} className={"color-dark-info"}Î>Reaction Types:</Text>
             <View style={styles.grid}>
                 {reactionTypes.map((type) => (
                     <TouchableOpacity
