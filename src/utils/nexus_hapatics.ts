@@ -74,31 +74,31 @@ export const hapticReaction = (type: ReactionType) => {
                 // Android: 3 golpes cortos y secos (Buzz-Buzz-Buzz)
                 android: [0, 100, 50, 100, 50, 100],
                 // iOS: 3 vibraciones con mínima separación (lo más rápido posible)
-                ios: [0, 100, 100]
+                ios: [1, 1]
             },
             normal: {
                 // Android: Un "tick" muy sutil (70ms)
                 android: [0, 70],
                 // iOS: Vibración estándar única (null o array vacío suele disparar la default)
-                ios: [0]
+                ios: [1, 2, 2]
             },
             bien: {
                 // Android: "Ta-da!" (Corto - Pausa - Medio)
                 android: [0, 100, 100, 200],
                 // iOS: Dos vibraciones separadas por un intervalo claro
-                ios: [0, 250]
+                ios: [2, 1]
             },
             excelente: {
                 // Android: Fanfarria creciente (Corto-Corto-Largo)
                 android: [0, 80, 50, 80, 50, 400],
                 // iOS: Tres vibraciones rápidas seguidas (Trino)
-                ios: [0, 150, 150]
+                ios: [1,1,1,1,1]
             },
             feliz: {
                 // Android: Latido de corazón (Ba-dum... Ba-dum)
                 android: [0, 80, 150, 80, 400, 80, 150, 80],
                 // iOS: Patrón rítmico espaciado
-                ios: [0, 300, 600, 300]
+                ios: [1,2,.9,.8,.8, 1]
             }
         }
     ;
@@ -110,8 +110,11 @@ export const hapticReaction = (type: ReactionType) => {
     // Cancelamos cualquier vibración previa para evitar superposiciones "sucias"
     Vibration.cancel();
 
+    const ONE_SECOND_IN_MS = 1000;
+    // multiply each entry of the array by ONE_SECOND_IN_MS
+    const scaledPattern = selectedPattern.map(entry => entry * ONE_SECOND_IN_MS);
     // Ejecutamos el patrón
-    Vibration.vibrate(selectedPattern, false);
+    Vibration.vibrate(scaledPattern, false);
 };
 
 export const animatedReaction = (type: ReactionType, loadingAnim: Animated.Value) => {

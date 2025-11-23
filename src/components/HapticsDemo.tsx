@@ -26,7 +26,7 @@ function HapticsDemo() {
                 ))}
             </View>
 
-            <Text style={[styles.sectionLabel, {marginTop: 12}]} className={"color-dark-info"}Î>Reaction Types:</Text>
+            <Text style={[styles.sectionLabel, {marginTop: 12}]} className={"color-dark-info"}>Reaction Types:</Text>
             <View style={styles.grid}>
                 {reactionTypes.map((type) => (
                     <TouchableOpacity
