@@ -1,6 +1,9 @@
-﻿import {View, Text, Switch} from "react-native";
+﻿import {View, Text, Switch, ScrollView} from "react-native";
 import {useTheme} from "@/contexts/ThemeContext";
 import {FontAwesome} from "@expo/vector-icons";
+import HapticsDemo from "@/components/HapticsDemo";
+
+
 
 export default function SettingsScreen() {
     const {theme, toggleTheme, themeColors} = useTheme();
@@ -89,6 +92,7 @@ export default function SettingsScreen() {
                         </View>
                     </View>
                 </View>
+                <HapticsDemo />
 
             </View>
         </View>
