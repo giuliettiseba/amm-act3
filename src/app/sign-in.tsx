@@ -6,6 +6,7 @@ import {validateEmail} from "@/utils/utils";
 import {hapticFeedback} from "@/utils/nexus_hapatics";
 import MorphingGlassButton from "@/components/MorphingGlassButton";
 import {MorphingGlassTextInput} from "@/components/MorphingGlassTextInput";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 
 export default function SignInScreen() {
@@ -70,6 +71,7 @@ export default function SignInScreen() {
 
     return (
         <View className="flex-1 justify-center items-center bg-dark-primary-foreground">
+            <AnimatedBackground validEmail={validEmail} validPassword={validPassword} />
             <View className="w-full max-w-sm bg-dark-background p-6 rounded-lg shadow-md">
 
                 <Text className="text-3xl font-extralight text-center mb-6 text-dark-primary">Nexus</Text>
