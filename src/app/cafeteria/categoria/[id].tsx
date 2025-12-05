@@ -26,7 +26,7 @@ const ListaProductosCategoriaScreen = () => {
             {error && <ErrorMessage message={"Error al cargar los productos. " + error}/>}
 
             <FlatList
-                numColumns={2}
+                numColumns={1}
                 style={{backgroundColor: themeColors.background}}
                 data={data}
                 keyExtractor={(item, index) => index.toString()}

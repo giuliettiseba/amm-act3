@@ -9,7 +9,7 @@ import {useThemeStore} from "@/utils/themeStore";
 import {useFonts} from "expo-font";
 import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
 import RootNavigator from "@/routes/RootNavigator";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 // Evitar que la pantalla de splash se oculte automáticamente en plataformas que no son web
 const isWeb = Platform.OS === "web";
@@ -63,7 +63,7 @@ export default function RootLayout() {
     }
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{flex: 1}}>
             <ThemeProvider>
                 <QueryClientProvider client={queryClient}>
                     <StatusBar style={theme === "dark" ?  "light" : "dark"}/>

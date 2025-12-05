@@ -27,7 +27,7 @@ const CafeteriaScreen = () => {
 
             {data && !error && !isPending && <FlatList
                 data={data}
-                numColumns={2}
+                numColumns={1}
                 style={{backgroundColor: themeColors.background}}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({item: category}) => (

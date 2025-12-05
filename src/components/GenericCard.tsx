@@ -65,17 +65,17 @@ const BookCard = ({
 
 
     return (
-
-
-        <View className="flex-1 p-4 m-2 rounded-lg items-center justify-between"
+        <View className="p-4 m-2 rounded-lg items-center justify-between"
         style={{
-            backgroundColor: themeColors.backgroundSecondary
+            backgroundColor: themeColors.backgroundSecondary,
+            // maxWidth: 400,
         }}
         >
             <Pressable
                 onPress={onClick}
+                style={{width: '100%'}}
             >
-                <View style={{}}>
+                <View style={{width: '100%', alignItems: 'center'}}>
                     {imagen?.endsWith("svg") ?
                         (
                             <SvgUri
@@ -88,38 +88,46 @@ const BookCard = ({
                             <Image src={imagen}
                                    style={{
                                        height: 200,
-                                       minWidth:"100%",
-                                       resizeMode: 'stretch',
+                                       width: '100%',
+                                       resizeMode: 'cover',
+                                       borderRadius: 8,
                                    }}
                             />
                         )}
 
                 </View>
-                <View >
+                <View style={{width: '100%', paddingHorizontal: 8}}>
 
                     <Text style={{color: themeColors.foreground}} className="font-bold text-center mt-2"
-                          numberOfLines={1}>{titulo}</Text>
+                          numberOfLines={1}
+                          ellipsizeMode="tail">{titulo}</Text>
                     <Text style={{color: themeColors.foregroundMuted}} className="text-sm text-center "
-                          numberOfLines={1}>{subtitulo}</Text>
+                          numberOfLines={1}
+                          ellipsizeMode="tail">{subtitulo}</Text>
                     <Text style={{color: themeColors.foregroundMuted}} className="text-xs text-center mb-4"
-                          numberOfLines={2}>{descripcion}</Text>
+                          numberOfLines={2}
+                          ellipsizeMode="tail">{descripcion}</Text>
                 </View>
 
             </Pressable>
             {labelBoton &&
                 <TouchableOpacity
-                    style={{backgroundColor: buttonColor.Background}}
-                    className="h-fit"
+                    style={{
+                        backgroundColor: buttonColor.Background,
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
+                        borderRadius: 6,
+                        minWidth: 100,
+                    }}
                     onPress={callbackBoton}
                     disabled={isDisabled || isLoading}
                 >
                     <Text style={{color: buttonColor.Label, fontFamily: 'HankenGrotesk-SemiBold'}}
-                          className="text-sm">
+                          className="text-sm text-center">
                         {labelBoton}
                     </Text>
 
                 </TouchableOpacity>}
-            {/*</Pressable>*/}
         </View>
     )
 }
