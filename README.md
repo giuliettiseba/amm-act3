@@ -16,10 +16,15 @@ Esta aplicación es la versión móvil nativa del proyecto web desarrollado prev
 
 ## 🌐 Enlaces Importantes
 
-- **Aplicación desplegada**: [https://expo.dev/accounts/giuliettiseba/projects/amm-act3](https://expo.dev/accounts/giuliettiseba/projects/amm-act3)
+- **Aplicación en Expo**: [https://expo.dev/accounts/giuliettiseba/projects/amm-act3](https://expo.dev/accounts/giuliettiseba/projects/amm-act3)
 - **Repositorio GitHub**: [https://github.com/giuliettiseba/amm-act3](https://github.com/giuliettiseba/amm-act3)
-- **API Simulada**: `https://mock.apidog.com/m1/1069422-1057565-default`
+- **API Simulada**: [https://mock.apidog.com/](https://mock.apidog.com/m1/1069422-1057565-default)
+- **Proyecto en Expo Updates**: [https://expo.dev/preview/](https://expo.dev/preview/update?message=updated+readme&updateRuntimeVersion=1.0.0&createdAt=2025-12-05T16%3A08%3A10.033Z&slug=exp&projectId=ced5f94e-641f-465e-8c2b-c731c273008c&group=0c483d5a-fae3-43bc-b3d6-fe283d7ddbd6)
+- **Link para abrir en Expo Development Client**: [exp+://expo-development-client/?url=https://u.expo.dev/ced5f94e-641f-465e-8c2b-c731c273008c/group/0c483d5a-fae3-43bc-b3d6-fe283d7ddbd6](exp+://expo-development-client/?url=https://u.expo.dev/ced5f94e-641f-465e-8c2b-c731c273008c/group/0c483d5a-fae3-43bc-b3d6-fe283d7ddbd6)
 
+- **Video Memoria de la Aplicación**  
+  Duración: 11 minutos  
+  Contenido: Demostración de funcionalidades, explicación técnica y justificación de decisiones de diseño.[Ver Video](https://alumnosunir-my.sharepoint.com/:v:/g/personal/sebastianemilio_giulietti784_comunidadunir_net/Ed2CgRQAOnxOg89I0lmdZfoB4wL7mWFxNxIeCRfXvFJM7A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=ej4VKe)
 ## 🚀 Acceso a la Aplicación
 
 ### Opción 1: Expo Go (Recomendado para pruebas rápidas)
