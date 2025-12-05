@@ -454,15 +454,15 @@ Este proyecto ha sido desarrollado como parte de la asignatura **Aplicaciones M�
 
 ## 📊 Rúbrica de Evaluación - Cumplimiento
 
-| Criterio | Descripción | Implementación | Peso |
-|----------|-------------|----------------|------|
-| **Criterio 1** | Landing page implementada | ✅ `(tabs)/index.tsx` | 5% |
+| Criterio | Descripción | Implementación                                    | Peso |
+|----------|-------------|---------------------------------------------------|------|
+| **Criterio 1** | Landing page implementada | ✅ `(tabs)/index.tsx`                              | 5% |
 | **Criterio 2** | Cinco vistas adicionales | ✅ Cafetería, Co-working, Libros, Perfil, Settings | 25% |
-| **Criterio 3** | Dos tipos de navegación | ✅ Stack + Tabs (Expo Router) | 20% |
-| **Criterio 4** | NativeWind + 2 fuentes | ✅ NativeWind + Hanken Grotesk (6 pesos) | 20% |
-| **Criterio 5** | Retroalimentación háptica | ✅ Múltiples puntos + custom hooks | 10% |
-| **Criterio 6** | Uso de API simulada | ✅ Integración completa con React Query | 10% |
-| **Criterio 7** | Vídeo memoria | 📹 Pendiente de entrega | 10% |
+| **Criterio 3** | Dos tipos de navegación | ✅ Stack + Tabs (Expo Router)                      | 20% |
+| **Criterio 4** | NativeWind + 2 fuentes | ✅ NativeWind + Hanken Grotesk (6 pesos)           | 20% |
+| **Criterio 5** | Retroalimentación háptica | ✅ Múltiples puntos + custom hooks                 | 10% |
+| **Criterio 6** | Uso de API simulada | ✅ Integración completa con React Query            | 10% |
+| **Criterio 7** | Vídeo memoria | ✅ Grabajdo y agregado a drive                     | 10% |
 
 ---
 
